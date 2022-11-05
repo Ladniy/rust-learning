@@ -8,8 +8,8 @@ In this repository i will publish projects from the ["The Rust Programming Langu
 
 ### [Hello world](https://github.com/Ladniy/rust-learning/tree/master/hello_world) and [Hello world Cargo](https://github.com/Ladniy/rust-learning/tree/master/hello_world_cargo)
 
-First programm of everyone who starting learn any programming language.<br>
-Hello world and Hello world Cargo is the same programs, just with one difference: Hello world compiled with rustc and Hello World Cargo compiled with Cargo. That's it!
+First program of everyone who starting learn any programming language.<br>
+Hello world and Hello world Cargo is the same programs, just with one difference: Hello world compiled with `rustc` and Hello World Cargo compiled with Cargo as a project. That's it!
 
 ### [Guessing Game](https://github.com/Ladniy/rust-learning/tree/master/guessing_game) (Rust Book project)
 
