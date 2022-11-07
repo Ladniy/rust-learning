@@ -1,0 +1,33 @@
+name: Ubuntu Linter & Build & Artifacts
+
+on:
+  pull_request:
+    types:
+    - closed
+    branches:
+    - main
+  workflow_dispatch:
+
+jobs:
+  rust_build:
+    strategy:
+      matrix:
+        project: [hello_world_cargo, guessing_game]
+  
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Linter
+      working-directory: ./${{ matrix.project }}
+      run: cargo clippy
+    - name: Build
+      working-directory: ./${{ matrix.project }}
+      run: cargo build --release
+    - name: Archive binaries
+      uses: actions/upload-artifact@v3
+      with:
+        name: ubuntu-binary-files
+        path: |
+         ./${{ matrix.project }}/target/release/${{ matrix.project }}
+         ./${{ matrix.project }}/target/release/${{ matrix.project }}.*
