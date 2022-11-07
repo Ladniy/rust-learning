@@ -1,0 +1,27 @@
+name: Build
+
+on:
+  pull_request:
+    types:
+    - closed
+    branches:
+    - main
+  workflow_dispatch:
+
+jobs:
+  rust_matrix:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        project: [./hello_world_cargo, ./guessing_game]
+  
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Linter
+      working-directory: ${{ matrix.project }}
+      run: cargo clippy
+    - name: Build
+      working-directory: ${{ matrix.project }}
+      run: cargo build --verbose
