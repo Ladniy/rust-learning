@@ -13,26 +13,24 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        project: [./hello_world_cargo, ./guessing_game]
+        project-path: [./hello_world_cargo, ./guessing_game]
+        project-name: [hello_world_cargo, guessing_game]
   
     runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v3
     - name: Linter
-      working-directory: ${{ matrix.project }}
+      working-directory: ${{ matrix.project-path }}
       run: cargo clippy
     - name: Build
-      working-directory: ${{ matrix.project }}
+      working-directory: ${{ matrix.project-path }}
       run: cargo build --release
     - name: Archive binaries
       uses: actions/upload-artifact@v3
       with:
         name: binary-files
         path: |
-          ${{ matrix.project }}/target/release/
-          !${{ matrix.project }}/target/release/build
-          !${{ matrix.project }}/target/release/deps
-          !${{ matrix.project }}/target/release/examples
-          !${{ matrix.project }}/target/release/incremental
+          ${{ matrix.project-path }}/target/release/${{ matrix.project-name }}
+          ${{ matrix.project-path }}/target/release/${{ matrix.project-name }}.*
           
