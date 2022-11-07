@@ -29,4 +29,10 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: binary-files
-        path: target/release/guessing_game
+        path: |
+          ${{ matrix.project }}/target/release/
+          !${{ matrix.project }}/target/release/build
+          !${{ matrix.project }}/target/release/deps
+          !${{ matrix.project }}/target/release/examples
+          !${{ matrix.project }}/target/release/incremental
+          
