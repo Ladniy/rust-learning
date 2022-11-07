@@ -1,4 +1,4 @@
-name: Build
+name: Linter & Build & Artifacts
 
 on:
   pull_request:
@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  rust_matrix:
+  rust_build:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
@@ -24,4 +24,10 @@ jobs:
       run: cargo clippy
     - name: Build
       working-directory: ${{ matrix.project }}
-      run: cargo build --verbose
+      run: cargo build --release
+    - name: Archive binaries
+      uses: actions/upload-artifact@v3
+      working-directory: ${{ matrix.project }}
+      with:
+        name: binary-files
+        path: target/release/guessing_game
